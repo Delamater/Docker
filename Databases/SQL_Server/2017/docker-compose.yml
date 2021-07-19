@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+    sqlServer2017:
+        image: 'mcr.microsoft.com/mssql/server:2017-CU8-ubuntu'
+        ports: 
+            - "1435:1433"
+        networks: 
+            - sqlServer
+        volumes:
+            - 'e:/Data/x3v12:/data'
+        container_name: xcov_jenkins
+        privileged: true
+        environment:
+            - SA_PASSWORD=yourStrong(!)Password
+            - ACCEPT_EULA=Y
+networks:
+    sqlServer:
+        driver: bridge
