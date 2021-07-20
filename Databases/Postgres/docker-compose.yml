@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
     database:
-        container_name: bob
+        container_name: postgres_12_7
         ports: 
             - "5432:5432"        
         image: 'postgres:12.7'
