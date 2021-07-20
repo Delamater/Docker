@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+    database:
+        container_name: bob
+        ports: 
+            - "5432:5432"        
+        image: 'postgres:12.7'
+        env_file: 
+            - database.env
+        volumes:
+            - E:/Data/Docker/postgres:/var/lib/postgresql/data/ # persist data even if container shuts down
