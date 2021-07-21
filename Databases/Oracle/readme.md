@@ -7,3 +7,4 @@ You must subscribe on the docker hub to Oracle to be able to pull the image.
 
 ## Oracle Connection Information
 The default password to connect to the database with sys user is Oradoc_db1
+Connect by SID (versus service name) and set the database to ORCLCDB in your connection properties
