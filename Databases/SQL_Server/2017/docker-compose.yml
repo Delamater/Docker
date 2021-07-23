@@ -9,7 +9,7 @@ services:
             - sqlServer
         volumes:
             - 'e:/Data/x3v12:/data'
-        container_name: xcov_jenkins
+        container_name: sql2017
         privileged: true
         environment:
             - SA_PASSWORD=yourStrong(!)Password
