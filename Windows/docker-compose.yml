@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+    Windows:
+        image: 'mcr.microsoft.com/10.0.19042.1526'
+        volumes:
+            - 'e:/Data/x3v12:/data'
+        container_name: win10
+        privileged: true
+        environment:
+            - SA_PASSWORD=yourStrong(!)Password
+            - ACCEPT_EULA=Y
+networks:
+    sqlServer:
+        driver: bridge
