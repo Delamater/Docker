@@ -2,18 +2,20 @@ version: '3.9'
 
 services:
     sqlServer2017:
-        image: 'mcr.microsoft.com/mssql/server:2017-CU8-ubuntu'
+        image: 'mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04'
         ports: 
-            - "1433:1433"
+            - "1435:1433"
         networks: 
             - sqlServer
         volumes:
             - 'e:/Data/x3v12:/data'
-        container_name: sql20172
+        container_name: sql2017
         privileged: true
         environment:
             - SA_PASSWORD=yourStrong(!)Password
             - ACCEPT_EULA=Y
+    windows2019:
+        image: ''
 networks:
     sqlServer:
         driver: bridge
