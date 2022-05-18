@@ -1,0 +1,68 @@
+FROM ubuntu:20.10 
+
+########################## Variable Declarations ##############################
+# Variable Set Up
+ENV NODE_VERSION 10.24.1
+# ENV NODE_VERSION 14.18.1
+ENV NVM_DIR /usr/local/nvm
+ENV NVS_HOME="/usr/local/Packages/NVS/.nvs/"
+ENV PATH $NVS_HOME/v${NODE_VERSION}/bin:$PATH
+
+########################## Dependencies #######################################
+# As shown here, ubuntu repositories have changed
+# https://veducate.co.uk/ubuntu-apt-update-fails/
+
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak && sed -i -re 's/([a-z]{2}.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && apt-get update && apt-get dist-upgrade
+
+RUN apt-get install -y -q --no-install-recommends \
+        apt-transport-https \
+        build-essential \
+        ca-certificates \
+        curl \
+        git \
+        libssl-dev \
+        wget \
+        npm \
+        nano \ 
+        vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# NVM installation for ease of switching node inside the container
+RUN mkdir $NVM_DIR
+RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
+
+# Define the working directory
+RUN mkdir /services
+# COPY XCov/* /services/XCov/
+
+
+# Expose ports
+EXPOSE 3005 
+EXPOSE 9229
+EXPOSE 80
+EXPOSE 8080
+
+WORKDIR /services/
+
+# Set up paths for npm
+# RUN node --version
+# RUN npm --version
+# RUN npm install
+# RUN npm run prepare
+
+######################### For future use ################################
+# nodemon may be used for debugging into a container from your host machine
+# but we will not set this up presently.
+# RUN npm install -g nodemon
+# ENTRYPOINT [ "nodemon","--inspect=0.0.0.0:9229" ]
+#########################################################################
+
+# Start node automatically
+# CMD node .
