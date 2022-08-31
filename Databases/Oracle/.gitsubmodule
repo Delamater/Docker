@@ -1,3 +1,0 @@
-[submodule "DbConnector"]
-	path = OracleDockerImages
-	url = https://github.com/oracle/docker-images.git
