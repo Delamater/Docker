@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+    database:
+        container_name: oracleEnterprise_12_1
+        ports: 
+            - "1521:1521"
+        image: "store/oracle/database-enterprise:12.2.0.1"
+        environment:
+            - host_port:1521
+            - ORACLE_SID=myoracle
+            - ORACLE_PWD=myoracle
+            - INIT_SGA_SIZE=100
+            - INIT_PGA_SIZE=100
+        volumes:
+            - E:/Data/Docker/oracleEnt12_1:/ORCL
