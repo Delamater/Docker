@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+    sqlServer2022:
+        image: 'mcr.microsoft.com/mssql/server:2022-latest'
+        ports: 
+            - "1433:1433"
+        networks: 
+            - sqlServer
+        volumes:
+            - 'e:/Data/x3v12:/data'
+        container_name: sql2022
+        privileged: true
+        environment:
+            - SA_PASSWORD=yourStrong(!)Password
+            - ACCEPT_EULA=Y
+networks:
+    sqlServer:
+        driver: bridge
